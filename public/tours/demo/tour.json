@@ -1,0 +1,59 @@
+{
+  "name": "Vzorový byt",
+  "startNodeId": "kuchyna",
+  "floorplan": {
+    "image": "podorys.png",
+    "rooms": [
+      {
+        "nodeId": "obyvacka",
+        "x": 0.5789,
+        "y": 0.3964,
+        "label": "Obývačka"
+      },
+      {
+        "nodeId": "obyvacka2",
+        "x": 0.8914,
+        "y": 0.168,
+        "label": "obyvacka2"
+      },
+      {
+        "nodeId": "kuchyna",
+        "x": 0.4342,
+        "y": 0.2124,
+        "label": "Kuchyňa"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "obyvacka",
+      "name": "Obývačka",
+      "panorama": "obyvacka.jpg",
+      "links": [
+        {
+          "nodeId": "obyvacka2",
+          "yaw": 6.2,
+          "pitch": -0.2661
+        }
+      ]
+    },
+    {
+      "id": "obyvacka2",
+      "name": "obyvacka2",
+      "panorama": "obyvacka2.jpg",
+      "links": [
+        {
+          "nodeId": "obyvacka",
+          "yaw": 2.965,
+          "pitch": -0.2951
+        }
+      ]
+    },
+    {
+      "id": "kuchyna",
+      "name": "Kuchyňa",
+      "panorama": "kuchyna.jpg",
+      "links": []
+    }
+  ]
+}
