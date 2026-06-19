@@ -17,6 +17,7 @@ import '@photo-sphere-viewer/markers-plugin/index.css';
 import FloorPlan from './FloorPlan.jsx';
 import Editor from './Editor.jsx';
 import { loadTour, toPsvNode, toExportJson } from './tourData.js';
+import arrowUrl from './arrow.svg';
 import './tour.css';
 
 export default function Tour({ src, edit = false }) {
@@ -62,6 +63,8 @@ export default function Tour({ src, edit = false }) {
                 startNodeId: startId,
                 preload: true, // prednačítaj susedné scény = plynulý prechod
                 transitionOptions: { effect: 'fade', speed: '15rpm', rotation: true },
+                // vlastná minimalistická šípka — rovnaký vzhľad na PC aj mobile
+                arrowStyle: { image: arrowUrl, size: { width: 70, height: 70 } },
               },
             ],
           ],

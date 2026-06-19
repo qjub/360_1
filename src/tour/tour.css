@@ -28,23 +28,50 @@
   border-radius: 4px;
 }
 
-/* --- Pôdorys (vpravo dole) --- */
-.ilumi-plan {
+/* --- Pôdorys --- */
+.ilumi-plan { z-index: 20; }
+
+/* panel: defaultne (normal) vpravo dole */
+.ilumi-plan__panel {
   position: absolute;
   right: 16px;
   bottom: 16px;
-  z-index: 20;
-  width: min(320px, 38vw);
-  background: rgba(20, 20, 20, 0.78);
+  width: min(300px, 42vw);
+  background: rgba(20, 20, 20, 0.8);
   backdrop-filter: blur(6px);
-  border-radius: 10px;
-  padding: 8px;
+  border-radius: 12px;
+  padding: 6px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  transition: width 0.2s ease;
 }
+
+/* lišta s názvom a ovládaním */
+.ilumi-plan__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px 6px;
+  color: #ddd;
+}
+.ilumi-plan__bar-title { font-size: 12px; letter-spacing: 0.04em; }
+.ilumi-plan__bar-btns { display: flex; gap: 4px; }
+.ilumi-plan__bar-btns button {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.ilumi-plan__bar-btns button:hover { background: rgba(255, 255, 255, 0.22); }
+
 .ilumi-plan__img {
   position: relative;
   line-height: 0;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .ilumi-plan.is-edit .ilumi-plan__img { cursor: crosshair; }
@@ -54,11 +81,54 @@
   display: block;
   user-select: none;
 }
+
+/* zväčšený režim: vystredený panel + tmavé pozadie */
+.ilumi-plan__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.55);
+}
+.ilumi-plan.is-expanded .ilumi-plan__panel {
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, 92vw);
+  max-height: 90%;
+  overflow: auto;
+  z-index: 2;
+}
+
+/* skrytý režim: tlačidlo na znovuotvorenie */
+.ilumi-plan__reopen {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+.ilumi-plan__reopen:hover { background: rgba(40, 40, 40, 0.9); }
+.ilumi-plan__reopen-ico { font-size: 15px; }
+
+/* body miestností */
 .ilumi-plan__dot {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid #fff;
   background: #d8d2c4;
@@ -77,7 +147,7 @@
   bottom: 130%;
   transform: translateX(-50%);
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
   color: #fff;
   background: rgba(0, 0, 0, 0.7);
   padding: 2px 6px;
@@ -92,6 +162,15 @@
   margin: 6px 2px 2px;
   font-size: 11px;
   color: #f0c89a;
+}
+
+/* --- Mobile: väčší pôdorys a väčšie body (touch) --- */
+@media (max-width: 640px) {
+  .ilumi-plan__panel { width: min(76vw, 360px); }
+  .ilumi-plan.is-expanded .ilumi-plan__panel { width: 94vw; }
+  .ilumi-plan__dot { width: 24px; height: 24px; border-width: 3px; }
+  .ilumi-plan__dot-label { font-size: 13px; }
+  .ilumi-plan__bar-btns button { width: 32px; height: 32px; font-size: 16px; }
 }
 
 /* --- EDIT panel (vľavo) --- */
@@ -183,6 +262,3 @@
   line-height: 1.4;
 }
 .ilumi-editor__placing button { margin-top: 6px; background: rgba(255, 255, 255, 0.15); }
-
-/* posuň pôdorys, nech nekoliduje s edit panelom na malých displejoch */
-.ilumi-tour.is-edit .ilumi-plan { right: 16px; }
