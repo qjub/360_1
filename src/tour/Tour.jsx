@@ -11,6 +11,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Viewer } from '@photo-sphere-viewer/core';
 import { VirtualTourPlugin } from '@photo-sphere-viewer/virtual-tour-plugin';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
+import { GyroscopePlugin } from '@photo-sphere-viewer/gyroscope-plugin';
 import '@photo-sphere-viewer/core/index.css';
 import '@photo-sphere-viewer/markers-plugin/index.css';
 
@@ -51,9 +52,12 @@ export default function Tour({ src, edit = false }) {
         viewer = new Viewer({
           container: containerRef.current,
           defaultZoomLvl: 0,
-          navbar: ['zoom', 'caption', 'fullscreen'],
+          // 'gyroscope' = tlačidlo na zapnutie ovládania pohybom telefónu (mobil).
+          // Na zariadeniach bez senzora sa tlačidlo automaticky skryje.
+          navbar: ['zoom', 'caption', 'gyroscope', 'fullscreen'],
           plugins: [
             MarkersPlugin,
+            GyroscopePlugin,
             [
               VirtualTourPlugin,
               {
